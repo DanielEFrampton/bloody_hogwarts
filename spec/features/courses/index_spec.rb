@@ -55,5 +55,12 @@ RSpec.describe 'As a visitor', type: :feature do
       expect(page.body.index(@potions.name)).to be < page.body.index(@transfiguration.name)
       expect(page).to have_content("#{@transfiguration.name}: #{@transfiguration.student_count}")
     end
+
+    it "I see list of names of each student enrolled in each course below that course" do
+      visit '/courses'
+      within "#course-#{@astronomy.id}" do
+        expect(page).to have_content(@harry.name)
+      end
+    end
   end
 end
