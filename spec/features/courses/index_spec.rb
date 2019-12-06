@@ -38,16 +38,29 @@ RSpec.describe 'As a visitor', type: :feature do
   end
 
   describe "When I visit '/courses'" do
-    it "I see a list of courses and the number of students enrolled in each course" do
+    it "I see a list of courses in alphabetical order and the number of students enrolled" do
       visit '/courses'
 
       expect(page).to have_content("#{@astronomy.name}: #{@astronomy.student_count}")
-      expect(page).to have_content("#{@herbology.name}: #{@herbology.student_count}")
-      expect(page).to have_content("#{@history.name}: #{@history.student_count}")
-      expect(page).to have_content("#{@flying.name}: #{@flying.student_count}")
+      expect(page.body.index(@astronomy.name)).to be < page.body.index(@dark_arts.name)
       expect(page).to have_content("#{@dark_arts.name}: #{@dark_arts.student_count}")
+      expect(page.body.index(@dark_arts.name)).to be < page.body.index(@flying.name)
+      expect(page).to have_content("#{@flying.name}: #{@flying.student_count}")
+      expect(page.body.index(@flying.name)).to be < page.body.index(@herbology.name)
+      expect(page).to have_content("#{@herbology.name}: #{@herbology.student_count}")
+      expect(page.body.index(@herbology.name)).to be < page.body.index(@history.name)
+      expect(page).to have_content("#{@history.name}: #{@history.student_count}")
+      expect(page.body.index(@history.name)).to be < page.body.index(@potions.name)
       expect(page).to have_content("#{@potions.name}: #{@potions.student_count}")
+      expect(page.body.index(@potions.name)).to be < page.body.index(@transfiguration.name)
       expect(page).to have_content("#{@transfiguration.name}: #{@transfiguration.student_count}")
+    end
+
+    it "I see list of names of each student enrolled in each course below that course" do
+      visit '/courses'
+      within "#course-#{@astronomy.id}" do
+        expect(page).to have_content(@harry.name)
+      end
     end
   end
 end

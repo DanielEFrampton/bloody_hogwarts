@@ -1,5 +1,11 @@
 <h2>Course Enrollment Index</h2>
 
 <% @courses.each do |course| %>
-  <p><%= course.name %>: <%= course.student_count %></p>
+  <section id="course-<%= course.id %>">
+    <p><%= course.name %>: <%= course.student_count %></p>
+    <ul>
+      <% course.students.order(:name).each do |student| %>
+        <li><%= student.name %></li>
+      <% end %>
+  </section>
 <% end %>
