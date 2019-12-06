@@ -1,0 +1,9 @@
+<h2>Students Index</h2>
+
+<% @students.each do |student| %>
+  <section id="student-<%= student.id %>">
+    <p>Name: <%= student.name %></p>
+    <p>Age: <%= student.age %></p>
+    <p>House: <%= student.house %></p>
+  </section>
+<% end %>
