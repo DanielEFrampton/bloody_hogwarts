@@ -2,17 +2,17 @@ require 'rails_helper'
 
 RSpec.describe 'As a visitor', type: :feature do
   before(:each) do
-    @harry = Student.new({
+    @harry = Student.create!({
                           name: "Harry Potter",
                           age: "12",
                           house: "Gryffindor"
                         })
-    @neville = Student.new({
+    @neville = Student.create!({
                           name: "Neville Longbottom",
                           age: "13",
                           house: "Gryffindor"
                           })
-    @draco = Student.new({
+    @draco = Student.create!({
                           name: "Draco Malfoy",
                           age: "14",
                           house: "Slytherin"
@@ -30,7 +30,7 @@ RSpec.describe 'As a visitor', type: :feature do
       expect(page).to have_content(@neville.name)
       expect(page).to have_content(@neville.age)
       expect(page).to have_content(@neville.house)
-      
+
       expect(page).to have_content(@draco.name)
       expect(page).to have_content(@draco.age)
       expect(page).to have_content(@draco.house)
