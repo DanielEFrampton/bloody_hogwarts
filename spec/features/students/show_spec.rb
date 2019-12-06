@@ -37,27 +37,23 @@ RSpec.describe 'As a visitor', type: :feature do
     StudentCourse.create({student_id: @draco.id, course_id: @transfiguration.id})
   end
 
-  descibe 'When I visit a student show page' do
+  describe 'When I visit a student show page' do
     it "I see a list for each student of their courses" do
-      visit '/students'
+      visit "/students/#{@harry.id}"
 
-      within "#student-#{@harry.id}" do
-        expect(page).to have_content('Astronomy')
-        expect(page).to have_content('Defence Against the Dark Arts')
-        expect(page).to have_content('Flying')
-      end
+      expect(page).to have_content('Astronomy')
+      expect(page).to have_content('Defence Against the Dark Arts')
+      expect(page).to have_content('Flying')
 
-      within "#student-#{@neville.id}" do
-        expect(page).to have_content('Astronomy')
-        expect(page).to have_content('Herbology')
-        expect(page).to have_content('History of Magic')
-      end
+      visit "/students/#{@neville.id}"
+      expect(page).to have_content('Astronomy')
+      expect(page).to have_content('Herbology')
+      expect(page).to have_content('History of Magic')
 
-      within "#student-#{@draco.id}" do
-        expect(page).to have_content('Potions')
-        expect(page).to have_content('Defence Against the Dark Arts')
-        expect(page).to have_content('Transfiguration')
-      end
+      visit "/students/#{@draco.id}"
+      expect(page).to have_content('Potions')
+      expect(page).to have_content('Defence Against the Dark Arts')
+      expect(page).to have_content('Transfiguration')
     end
   end
 end
