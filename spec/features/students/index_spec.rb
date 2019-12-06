@@ -35,5 +35,21 @@ RSpec.describe 'As a visitor', type: :feature do
       expect(page).to have_content(@draco.age)
       expect(page).to have_content(@draco.house)
     end
+
+    it "I expect to see the average age of all students up to two decimals" do
+      visit '/students'
+
+      expect(page).to have_content('Average Age: 13')
+
+      Student.create!({
+                      name: "Hermione",
+                      age: "38",
+                      house: "Gryffindor"
+                      })
+
+      visit '/students'
+
+      expect(page).to have_content('Average Age: 19.25')
+    end
   end
 end
