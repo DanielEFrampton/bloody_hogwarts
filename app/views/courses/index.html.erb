@@ -1,0 +1,5 @@
+<h2>Course Enrollment Index</h2>
+
+<% @courses.each do |course| %>
+  <p><%= course.name %>: <%= course.student_count %></p>
+<% end %>
