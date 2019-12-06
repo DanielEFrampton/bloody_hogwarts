@@ -20,20 +20,23 @@ RSpec.describe 'As a visitor', type: :feature do
   end
 
   describe "When I visit '/students'" do
-    it "I see a list of students with their name, age, and house" do
+    it "I see a list of students ordered alphabetically with their name, age, and house" do
       visit '/students'
+
+      expect(page).to have_content(@draco.name)
+      expect(page).to have_content(@draco.age)
+      expect(page).to have_content(@draco.house)
+      expect(page.body.index(@draco.name)).to be < page.body.index(@harry.name)
 
       expect(page).to have_content(@harry.name)
       expect(page).to have_content(@harry.age)
       expect(page).to have_content(@harry.house)
+      expect(page.body.index(@harry.name)).to be < page.body.index(@neville.name)
 
       expect(page).to have_content(@neville.name)
       expect(page).to have_content(@neville.age)
       expect(page).to have_content(@neville.house)
 
-      expect(page).to have_content(@draco.name)
-      expect(page).to have_content(@draco.age)
-      expect(page).to have_content(@draco.house)
     end
 
     it "I expect to see the average age of all students up to two decimals" do
